@@ -100,4 +100,95 @@ class Chapter5Spec extends FunSpec with Matchers {
     res should be(Some("male"))
   }
 
+  it("shows how to raise a NullPointerException") {
+    val something = null
+
+    def getLength(x: String): Int = x.length
+
+    intercept[java.lang.NullPointerException] {
+      getLength(something)
+    }
+  }
+
+  it("shows a terrible way to avoid a NullPointerException") {
+    val something = null
+    def crappyGetLength(x: String): Any =
+      if (x != null) x.length else null
+    assert(crappyGetLength(something) == null)
+  }
+
+  it("shows an undesirable way to deal with an optional value") {
+    def betterGetLength(x: Option[String]): Option[Int] =
+      if (x.isDefined) Some(x.get.length) else None
+    assert(betterGetLength(None) == None)
+    assert(betterGetLength(Some("puppy")) == Some(5))
+  }
+
+  it("shows a good way to deal with an optional value") {
+    def goodGetLength(x: Option[String]): Option[Int] =
+      x.map(_.length)
+    assert(goodGetLength(None) == None)
+    assert(goodGetLength(Some("puppy")) == Some(5))
+  }
+
+  it("shows ugly nested option possibilities") {
+    case class Dog(
+      id: Int,
+      firstName: String,
+      nickName: Option[String])
+
+    val dog1 = Dog(1, "Spot", Some("foofie"))
+    val dog2 = Dog(2, "Luna", None)
+
+    val dogs = Map(
+      1 -> dog1,
+      2 -> dog2)
+
+    def findById(dogs: Map[Int, Dog], id: Int): Option[Dog] =
+      dogs.get(id)
+
+    val d1 = findById(dogs, 1)
+    d1.map(_.nickName) should be(Some(Some("foofie")))
+//    println(d1)
+//    println(dog1.nickName)
+  }
+
+  it("shows how to avoid ugly nested optional values") {
+    case class Dog(
+                    id: Int,
+                    firstName: String,
+                    nickName: Option[String])
+
+    val dog1 = Dog(1, "Spot", Some("foofie"))
+    val dog2 = Dog(2, "Luna", None)
+
+    val dogs = Map(
+      1 -> dog1,
+      2 -> dog2)
+
+    def findById(dogs: Map[Int, Dog], id: Int): Option[Dog] =
+      dogs.get(id)
+
+    val d1 = findById(dogs, 1)
+    d1.flatMap(_.nickName) should be(Some("foofie"))
+  }
+
+  it("shows how to filter optional values when the predicate is true") {
+    case class Cat(name: String, age: Int)
+    val darla = Some(Cat("darla", 12))
+    darla.filter(_.age > 10) should be(darla)
+  }
+
+  it("shows how to filter optional values when the predicate is false") {
+    case class Cat(name: String, age: Int)
+    val chunkers = Some(Cat("chunkers", 4))
+    chunkers.filter(_.age > 10) should be(None)
+  }
+
+  it("shows how to filter over None values") {
+    case class Cat(name: String, age: Int)
+    val nala: Option[Cat] = None
+    nala.filter(_.age > 10) should be(None)
+  }
+
 }

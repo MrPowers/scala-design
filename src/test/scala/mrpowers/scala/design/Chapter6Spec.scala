@@ -1,10 +1,12 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
-
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala.util.{Failure, Success}
+import scala.util.Try
+import java.net.URL
 
-class Chapter6Spec extends FunSpec with Matchers {
+class Chapter6Spec extends AnyFunSpec with Matchers {
 
   case class Customer(age: Int)
   class Cigarettes
@@ -27,12 +29,35 @@ class Chapter6Spec extends FunSpec with Matchers {
   }
 
   it("fetches a URL") {
-    import scala.util.Try
-    import java.net.URL
     def parseURL(url: String): Try[URL] = Try(new URL(url))
-
     parseURL("https://mungingdata.com/") shouldBe a [Success[_]]
     parseURL("this IS NOT a URL") shouldBe a [Failure[_]]
   }
+
+  it("demonstrates how to use isSuccess") {
+    val url = Try(new URL("https://www.blah.com"))
+    val res = if (url.isSuccess) "we have a URL" else "where to go?"
+    res should be("we have a URL")
+  }
+
+  it("shows how to use getOrElse") {
+    val url = Try(new URL("blah"))
+    val res = url.getOrElse("I am broken")
+    res should be("I am broken")
+  }
+
+  it("shows how map can return Failure values") {
+    val url = Try(new URL("blah"))
+    val res = url.map(_.getProtocol)
+    res shouldBe a[Failure[java.net.MalformedURLException]]
+  }
+
+  it("shows how map can return Success values") {
+    val url = Try(new URL("https://www.mungingdata.com"))
+    val res = url.map(_.getProtocol)
+    res should be(Success("https"))
+  }
+
+  // skipped some more stuff
 
 }

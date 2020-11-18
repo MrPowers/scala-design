@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class ExtractingSequencesSpec extends FunSpec with Matchers {
+class ExtractingSequencesSpec extends AnyFunSpec with Matchers {
 
   object Names {
     def unapplySeq(name: String): Option[(String, String, Seq[String])] = {

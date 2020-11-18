@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class GivenNamesSpec extends FunSpec with Matchers {
+class GivenNamesSpec extends AnyFunSpec with Matchers {
 
   def greetWithFirstName(name: String) = name match {
     case GivenNames(firstName, _*) => "Good morning, " + firstName + "!"

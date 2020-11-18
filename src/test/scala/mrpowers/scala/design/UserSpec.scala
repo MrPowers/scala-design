@@ -1,9 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.FunSpec
-import org.scalatest.Matchers._
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class UserSpec extends FunSpec {
+class UserSpec extends AnyFunSpec with Matchers {
 
   it("can extract from objects") {
     val user1 = new FreeUser("Daniel")

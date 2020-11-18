@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class Chapter3Spec extends FunSpec with Matchers {
+class Chapter3Spec extends AnyFunSpec with Matchers {
 
   case class Player(name: String, score: Int)
 

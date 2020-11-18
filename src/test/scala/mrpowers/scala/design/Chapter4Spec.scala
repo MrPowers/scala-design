@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class Chapter4Spec extends FunSpec with Matchers {
+class Chapter4Spec extends AnyFunSpec with Matchers {
 
   it("lowercases all the elements in a list") {
     val songTitles = List("The White Hare", "Childe the Hunter", "Take no Rogues")

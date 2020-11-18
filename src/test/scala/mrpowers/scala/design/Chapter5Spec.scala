@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class Chapter5Spec extends FunSpec with Matchers {
+class Chapter5Spec extends AnyFunSpec with Matchers {
 
   it("shows how to create some basic optional values") {
     val greeting1: Option[String] = Some("Hello world")

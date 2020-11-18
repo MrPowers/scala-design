@@ -1,8 +1,9 @@
 package mrpowers.scala.design
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class PatternMatchingSequencesSpec extends FunSpec with Matchers {
+class PatternMatchingSequencesSpec extends AnyFunSpec with Matchers {
 
   it("pattern matches 2 or 3 elements") {
     val xs = 3 :: 6 :: 12 :: Nil

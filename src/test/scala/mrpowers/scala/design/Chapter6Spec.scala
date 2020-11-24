@@ -41,7 +41,7 @@ class Chapter6Spec extends AnyFunSpec with Matchers {
   }
 
   it("shows how to use getOrElse") {
-    val url = Try(new URL("blah"))
+    val url = Try(new java.net.URL("blah"))
     val res = url.getOrElse("I am broken")
     res should be("I am broken")
   }

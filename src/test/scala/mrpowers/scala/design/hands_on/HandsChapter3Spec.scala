@@ -176,6 +176,37 @@ class HandsChapter3Spec extends AnyFunSpec with Matchers {
 //      fullName("Matthew") // compile error
     }
 
+    it("errors out if an argument of the incorrect type is passed") {
+      def greet(firstName: String): String = "hi " + firstName
+      // compile error
+//      greet(22)
+    }
+
+  }
+
+  describe("function values") {
+    it("shows that functions can be assigned to variables") {
+      var g: Int => Int = i => i + 1
+      g(7) should be(8)
+    }
+
+    it("shows how methods can take function arguments") {
+      class Box(var x: Int) {
+        def update(f: Int => Int) =
+          x = f(x)
+
+        def someMessage(msg: String) =
+          msg + x
+      }
+
+      val b = new Box(1)
+      b.someMessage("hello") should be("hello1")
+      b.update(i => i + 5)
+      b.someMessage("whatever") should be("whatever6")
+      // use placeholder syntax
+      b.update(_ - 3)
+      b.someMessage("shoe") should be("shoe3")
+    }
   }
 
 }

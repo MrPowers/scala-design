@@ -1,4 +1,4 @@
-package mrpowers.scala.design
+package mrpowers.scala.design.neophyte
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
@@ -8,7 +8,7 @@ class Chapter3Spec extends AnyFunSpec with Matchers {
   case class Player(name: String, score: Int)
 
   def message(player: Player) = player match {
-    case Player(_, score) if score > 100000 => "Get a job, dude!"
+    case Player(_, score) if score > 100000 => "Get a job"
     case Player(name, _) => "Hey " + name + ", nice to see you again!"
   }
 
@@ -16,7 +16,7 @@ class Chapter3Spec extends AnyFunSpec with Matchers {
     val p1 = Player("bob", 10)
     message(p1) should be("Hey bob, nice to see you again!")
     val p2 = Player("carolina", 500000)
-    message(p2) should be("Get a job, dude!")
+    message(p2) should be("Get a job")
   }
 
   it("allows for Tuples to be destructured") {

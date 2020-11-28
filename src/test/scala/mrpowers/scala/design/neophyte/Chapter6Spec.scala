@@ -1,10 +1,11 @@
-package mrpowers.scala.design
+package mrpowers.scala.design.neophyte
+
+import java.net.URL
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
-import scala.util.{Failure, Success}
-import scala.util.Try
-import java.net.URL
+
+import scala.util.{Failure, Success, Try}
 
 class Chapter6Spec extends AnyFunSpec with Matchers {
 

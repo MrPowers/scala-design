@@ -25,7 +25,29 @@ class HandsChapter4Spec extends AnyFunSpec with Matchers {
   }
 
   describe("transforms") {
+    it("multiplies every element in an array by two") {
+      Array(1, 2, 3).map(i => i * 2) should equal(Array(2, 4, 6))
+    }
 
+    it("filters out the even elements") {
+      Array(1, 2, 3, 4, 5).filter(i => i % 2 == 1) should equal(Array(1, 3, 5))
+    }
+
+    it("takes the first two elements") {
+      Array(1, 2, 3, 4, 5).take(2) should equal(Array(1, 2))
+    }
+
+    it("drops the first two elements") {
+      Array(1, 2, 3, 4, 5).drop(2) should equal(Array(3, 4, 5))
+    }
+
+    it("keeps elements from index 1-4") {
+      Array(1, 2, 3, 4, 5).slice(1, 4) should equal(Array(2, 3, 4))
+    }
+
+    it("removes duplicates from an array") {
+      Array(1, 1, 1, 2, 3, 2).distinct should equal(Array(1, 2, 3))
+    }
   }
 
   describe("views") {

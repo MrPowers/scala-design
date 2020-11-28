@@ -1,9 +1,9 @@
-package mrpowers.scala.design
-
-import scala.io.Source
+package mrpowers.scala.design.neophyte
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+
+import scala.io.Source
 
 class Chapter7Spec extends AnyFunSpec with Matchers {
 

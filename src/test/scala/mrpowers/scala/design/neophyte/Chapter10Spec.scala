@@ -1,4 +1,4 @@
-package mrpowers.scala.design
+package mrpowers.scala.design.neophyte
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers

@@ -1,0 +1,4 @@
+{
+  "edges_file": "/path/edges.json.gz",
+  "seed_file": "/path/seed.json.gz"
+}

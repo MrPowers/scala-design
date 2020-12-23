@@ -115,4 +115,101 @@ val data = ujson.read(jsonString)
     }
   }
 
+  case class City(name: String, funActivity: String, latitude: Double)
+  val bengaluru = City("Bengaluru", "South Indian food", 12.97)
+  implicit val cityRW: upickle.default.ReadWriter[City] = upickle.default.macroRW[City]
+
+  describe("serialize JSON") {
+    it("can serialize an object with JSON") {
+      val res: String = upickle.default.write(bengaluru)
+      println(res)
+      os.write(
+        os.pwd/"tmp"/"serialized_city.json",
+        upickle.default.write(bengaluru)
+      )
+    }
+  }
+
+  describe("deserialize JSON") {
+    it("can convert a string to a Scala object") {
+      val str = """{"name":"Barcelona","funActivity":"Eat tapas","latitude":41.39}"""
+      val barcelona = upickle.default.read[City](str)
+      println(barcelona.getClass)
+      println(barcelona.latitude)
+    }
+
+    it("can read a JSON file and make a Scala object") {
+      val path = os.pwd/"src"/"test"/"resources"/"beirut.json"
+      val data = os.read(path)
+      val beirut = upickle.default.read[City](data)
+      println(beirut.getClass)
+      println(beirut.funActivity)
+    }
+  }
+
+  case class Cat(name: String, color: String)
+  implicit val catRW: upickle.default.ReadWriter[Cat] = upickle.default.macroRW[Cat]
+
+  describe("serialize MessagePack") {
+//    it("creates a blob") {
+//      val manila: City = City("Manila", "party", 14.6)
+//      val blob: Array[Byte] = upickle.default.writeBinary(manila)
+//      val m2: City = upickle.default.readBinary[City](blob)
+//      println(m2.latitude)
+//    }
+
+//    it("writes out a binary file") {
+//      val manila = City("Manila", "party", 14.6)
+//      println(upickle.default.writeBinary(manila))
+//      os.write(
+//        os.pwd/"tmp"/"manila.msgpack",
+//        upickle.default.writeBinary(manila)
+//      )
+//    }
+
+        it("writes out a binary file") {
+          val darla = Cat("Darla", "Black")
+          val res: Array[Byte] = upickle.default.writeBinary(darla)
+//          val upackMsg: upack.Msg = upack.read(res)
+          os.write(
+            os.pwd/"tmp"/"darla.msgpack",
+            upickle.default.write(res)
+          )
+        }
+
+//    it("writes binary with upack") {
+//      val manila = City("Manila", "party", 14.6)
+//      os.write(
+//        os.pwd/"tmp"/"manila.msgpack",
+//        upickle.default.writeMsg(manila)
+//      )
+//    }
+  }
+
+  describe("deserialize MessagePack") {
+//    it("deserializes a binary file") {
+//      val path = os.pwd/"tmp"/"manila.msgpack"
+//      val data = os.read(path)
+//      val upackMsg = upack.read(data.getBytes())
+//      val beirut = upickle.default.readBinary[City](upackMsg)
+//      println(beirut.getClass)
+//      println(beirut.funActivity)
+//    }
+//    it("converts a binary file to a Scala object") {
+//      val path = os.pwd/"tmp"/"manila.msgpack"
+//      val data = os.read(path)
+//      val beirut: City = upickle.default.readBinary[City](data.getBytes())
+//      println(beirut.getClass)
+//      println(beirut.funActivity)
+
+        it("converts a binary file to a Scala object") {
+          val path = os.pwd/"tmp"/"darla.msgpack"
+          val str = os.read(path)
+          val upackMsg: upack.Msg = upack.read(str.getBytes())
+//          val darla: Cat = upickle.default.readBinary[Cat](upackMsg)
+//          println(darla.getClass)
+//          println(darla.color)
+    }
+  }
+
 }
